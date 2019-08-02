@@ -1,8 +1,6 @@
 import os
 import praw
 
-from importer import Importer
-
 
 class Reddit:
 
@@ -13,14 +11,15 @@ class Reddit:
 
     def get_post_link(self):
         reddit = praw.Reddit(
-            client_id=os.getenviron('reddit_personal_use_script'),
-            client_secret=os.getenviron('reddit_secret'),
-            user_agent=os.getenviron('reddit_app_name'),
-            username=os.getenviron('reddit_username'),
-            password=os.getenviron('reddit_password'),
+            client_id=os.environ.get('reddit_personal_use_script'),
+            client_secret=os.environ.get('reddit_secret'),
+            user_agent=os.environ.get('reddit_app_name'),
+            username=os.environ.get('reddit_username'),
+            password=os.environ.get('reddit_password'),
         )
         subreddit = reddit.subreddit(self.subreddit)
-        new_posts = subreddit.new(limit=20)
-        
+        new_posts = subreddit.new(limit=100)
+
         for post in new_posts:
-            print(post.title, post.id)
+            if self.key_word in post.title:
+                print(post.title, post.id, post.url)
