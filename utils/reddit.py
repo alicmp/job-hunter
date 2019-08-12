@@ -4,8 +4,8 @@ import praw
 
 class Reddit:
 
-    def __init__(self, subreddit, key_word):
-        self.subreddit = subreddit
+    def __init__(self, subreddits, key_word):
+        self.subreddits = subreddits
         self.key_word = key_word
     
 
@@ -17,9 +17,8 @@ class Reddit:
             username=os.environ.get('reddit_username'),
             password=os.environ.get('reddit_password'),
         )
-        subreddit = reddit.subreddit(self.subreddit)
-        new_posts = subreddit.new(limit=100)
-
-        for post in new_posts:
-            if self.key_word in post.title:
-                print(post.title, post.id, post.url)
+        
+        for subreddit in self.subreddits:
+            posts = reddit.subreddit(subreddit).search(self.key_word, sort='new', limit=20)
+            for post in posts:
+                yield {'title': post.title, 'url': post.url}
