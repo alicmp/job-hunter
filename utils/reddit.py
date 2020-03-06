@@ -17,8 +17,10 @@ class Reddit:
             username=os.environ.get('reddit_username'),
             password=os.environ.get('reddit_password'),
         )
-        
+
         for subreddit in self.subreddits:
-            posts = reddit.subreddit(subreddit).search(self.key_word, sort='new', limit=20)
+            posts = reddit.subreddit(subreddit).search(self.key_word,
+                                                       sort='new', limit=20)
             for post in posts:
-                yield {'title': post.title, 'url': post.url}
+                yield {'title': post.title, 'description': post.selftext,
+                       'url': post.url}

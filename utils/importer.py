@@ -1,9 +1,19 @@
-import requests
-
 class Importer:
-    def __init__(self, url):
-        self.url = url
+
+    keywords = [
+        'python',
+        'instagram',
+        'script',
+        'django',
+        'flask',
+        'bot',
+        'web'
+    ]
     
-    def get(self):
-        res = requests.get(self)
-        return res.text
+    @classmethod
+    def filter(cls, title, description):
+        if any(key in title for key in cls.keywords):
+            return True
+        if any(key in description for key in cls.keywords):
+            return True
+        return False
