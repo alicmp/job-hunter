@@ -9,7 +9,7 @@ class Importer:
         'bot',
         'web'
     ]
-    
+
     @classmethod
     def filter(cls, title, description):
         if any(key in title for key in cls.keywords):

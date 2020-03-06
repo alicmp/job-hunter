@@ -7,7 +7,6 @@ class Reddit:
     def __init__(self, subreddits, key_word):
         self.subreddits = subreddits
         self.key_word = key_word
-    
 
     def get_post_link(self):
         reddit = praw.Reddit(

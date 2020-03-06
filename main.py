@@ -1,6 +1,7 @@
 from utils.reddit import Reddit
 from utils.importer import Importer
 
+
 if __name__ == "__main__":
     forhire = Reddit(
         ['forhire', 'jobbit', 'jobopenings'],
