@@ -3,12 +3,14 @@ import praw
 
 
 class Reddit:
+    """Handle connecting to reddit and getting posts on specific subreddit"""
 
     def __init__(self, subreddits, key_word):
         self.subreddits = subreddits
         self.key_word = key_word
 
     def get_post_link(self):
+        """Getting posts link"""
         reddit = praw.Reddit(
             client_id=os.environ.get('reddit_personal_use_script'),
             client_secret=os.environ.get('reddit_secret'),
