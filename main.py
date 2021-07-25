@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from utils.reddit import Reddit
 from utils.importer import Importer
 
@@ -8,7 +10,8 @@ def main():
     """
     forhire = Reddit(
         ['forhire', 'jobbit', 'jobopenings'],
-        'Hiring'
+        'Hiring',
+        datetime.utcnow() - timedelta(hours=2) # an hour ago
     )
     reddit_results = forhire.get_post_link()
     for res in reddit_results:
@@ -21,4 +24,4 @@ if __name__ == "__main__":
     """Printing results"""
     results = main()
     for res in results:
-        print(res['title'])
+        print(res['title'], res['url'])

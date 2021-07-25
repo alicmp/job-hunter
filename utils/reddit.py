@@ -1,13 +1,16 @@
 import os
+from datetime import datetime
+
 import praw
 
 
 class Reddit:
     """Handle connecting to reddit and getting posts on specific subreddit"""
 
-    def __init__(self, subreddits, key_word):
+    def __init__(self, subreddits, flair, time_delta):
         self.subreddits = subreddits
-        self.key_word = key_word
+        self.flair = flair.lower()
+        self.time_delta = time_delta
 
     def get_post_link(self):
         """Getting posts link"""
@@ -20,8 +23,12 @@ class Reddit:
         )
 
         for subreddit in self.subreddits:
-            posts = reddit.subreddit(subreddit).search(self.key_word,
-                                                       sort='new', limit=20)
+            posts = reddit.subreddit(subreddit).new(limit=25)
             for post in posts:
-                yield {'title': post.title, 'description': post.selftext,
-                       'url': post.url}
+                if not post.title:
+                    continue
+                post_created_time = datetime.utcfromtimestamp(post.created_utc)
+                if self.flair in post.title.lower() and \
+                    post_created_time >= self.time_delta:
+                    yield {'title': post.title, 'description': post.selftext,
+                           'url': post.url}
