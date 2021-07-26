@@ -11,10 +11,7 @@ class Reddit:
         self.subreddits = subreddits
         self.flair = flair.lower()
         self.time_delta = time_delta
-
-    def get_post_link(self):
-        """Getting posts link"""
-        reddit = praw.Reddit(
+        self.reddit = praw.Reddit(
             client_id=os.environ.get('reddit_personal_use_script'),
             client_secret=os.environ.get('reddit_secret'),
             user_agent=os.environ.get('reddit_app_name'),
@@ -22,8 +19,11 @@ class Reddit:
             password=os.environ.get('reddit_password'),
         )
 
+    def get_post_link(self):
+        """Getting posts link"""
+
         for subreddit in self.subreddits:
-            posts = reddit.subreddit(subreddit).new(limit=25)
+            posts = self.reddit.subreddit(subreddit).new(limit=25)
             for post in posts:
                 if not post.title:
                     continue
@@ -31,4 +31,4 @@ class Reddit:
                 if self.flair in post.title.lower() and \
                     post_created_time >= self.time_delta:
                     yield {'title': post.title, 'description': post.selftext,
-                           'url': post.url}
+                           'url': post.url, 'source': f'r/{subreddit}'}
