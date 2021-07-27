@@ -11,14 +11,17 @@ class Reddit:
         self.subreddits = subreddits
         self.flair = flair.lower()
         self.time_delta = time_delta
-        self.reddit = praw.Reddit(
+
+    @property
+    def reddit(self):
+        return praw.Reddit(
             client_id=os.environ.get('reddit_personal_use_script'),
             client_secret=os.environ.get('reddit_secret'),
             user_agent=os.environ.get('reddit_app_name'),
             username=os.environ.get('reddit_username'),
             password=os.environ.get('reddit_password'),
         )
-
+    
     def get_post_link(self):
         """Getting posts link"""
 

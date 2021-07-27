@@ -17,6 +17,7 @@ class Importer:
         'fullstack',
         'full stack',
         'ui/ux',
+        'ui&ux',
         'ui ux',
         'ui-ux',
         'logo',

@@ -30,13 +30,14 @@ if __name__ == "__main__":
     for res in results:
         print(res['title'], res['url'])
 
-    sender_email = os.environ.get('sender_email')
-    receiver_email = os.environ.get('receiver_email')
-    password = os.environ.get('sender_email_password')
+    if results:
+        sender_email = os.environ.get('sender_email')
+        receiver_email = os.environ.get('receiver_email')
+        password = os.environ.get('sender_email_password')
 
-    time_period = datetime.now() - timedelta(hours=2)
-    subject = f"Candid Jobs For {time_period} Until Now"
-    email = EmailHandler(subject=subject, jobs=results,
-                         sender_email=sender_email,
-                         receiver_email=receiver_email, password=password)
-    email.send_email()
+        time_period = datetime.now() - timedelta(hours=2)
+        subject = f"Candid Jobs For {time_period} Until Now"
+        email = EmailHandler(subject=subject, jobs=results,
+                            sender_email=sender_email,
+                            receiver_email=receiver_email, password=password)
+        email.send_email()
