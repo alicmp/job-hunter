@@ -13,13 +13,6 @@ class EmailHandler:
         self.receiver_email = receiver_email
         self.password = password
     
-    def create_text(self):
-        text = "Here are your new job postings:\n"
-        for job in self.jobs:
-            text += f"{job['title']} {job['url']}\n"
-
-        return text
-
     def create_html(self):
         rows = ''
         for job in self.jobs:
@@ -40,6 +33,14 @@ class EmailHandler:
         </html>
         """
         return html
+
+    def create_text(self):
+        text = "Here are your new job postings:\n"
+        for job in self.jobs:
+            text += f"{job['title']} {job['url']}\n"
+
+        return text
+
 
     def send_email(self):
         message = MIMEMultipart("alternative")

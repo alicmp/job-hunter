@@ -20,11 +20,12 @@ class Reddit:
             username=os.environ.get('reddit_username'),
             password=os.environ.get('reddit_password'),
         )
-    
+
     def get_post_link(self):
         """Getting posts link"""
 
         logging.info('start getting posts from reddit...')
+
         for subreddit in self.subreddits:
             posts = self.reddit.subreddit(subreddit).new(limit=25)
             for post in posts:
