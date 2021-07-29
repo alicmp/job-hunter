@@ -1,17 +1,31 @@
 # Job Hunter
-With this project you can find job posts on reddit and craigslist based on
-your speciality. Its on early stages but its going to extract posts on reddit
-and craigslist and with a help of spaCy library its deciding whether this post
-is good match with your specialities or not.
-Right now i wrote my own filter method for this task and its working fine, but
-later i implement spaCy with it.
+I wrote this bot to find job postings from reddit and craigslist (in the future)
+based on my preferences. And email them to me. The bots workflow is simple, It 
+first connects to reddit,and catches submissions from my chosen subreddits. 
+After that it filters the submissions based on my preferences and finally email 
+them to my email!
 
 ## Requirements
-- Python 3
+- Python 3.8
 - Pipenv
 
 ## Setup
-Install dependencies then execute `main.py`
+create the `.env` file and put necessary information inside it. You can check 
+`.env.sample` to find out which information you need.
+Navigate to the root of the project and activate virtual environment.
+``` sh
+$ pipenv shell
+```
+Install dependencies.
+``` sh
+$ pipenv sync
+```
+Edit keyword on `utils/importer.py` based on your own preferences.
+And finally run the code.
+``` sh
+$ python main.py
+```
+You can use cronjob to run the code periodically.
 
 ## Future development
 - [] Write Craigslist importer as well.
